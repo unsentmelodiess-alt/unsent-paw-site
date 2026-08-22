@@ -1,0 +1,12 @@
+- [x] Create and upload the hero, story, and logo visual assets.
+- [x] Define the temporary English brand and centralize site copy/configuration.
+- [x] Build the responsive Home, Memory Wall, Listen, Stories, Guides, and Shop experiences.
+- [x] Add dark mode, tribute submission modal, audio timer/repeat controls, and Etsy placeholders.
+- [x] Verify TypeScript/build quality and document local run and GitHub upload steps.
+- [x] Capture the final responsive preview and save the project checkpoint.
+- [x] Decide whether to add an SEO-focused editorial journal and define its first content clusters.
+- [x] Create English journal data for six initial evergreen articles across remembrance, behavior, and calming audio.
+- [x] Build Journal index, category filters, article routes, and article templates.
+- [x] Add intentional music, email, and Etsy conversion paths to each article template.
+- [x] Update navigation, README, build checks, and final preview for the Journal release.
+- [x] Prepare a complete source archive that preserves client, server, shared, and patches folders for GitHub and Vercel.
