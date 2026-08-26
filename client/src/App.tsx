@@ -9,6 +9,7 @@ import Journal from "./pages/Journal";
 import JournalArticle from "@/pages/JournalArticle";
 import Stories from "@/pages/Stories";
 import StoryArticle from "@/pages/StoryArticle";
+import InfoPage from "@/pages/InfoPage";
 
 
 function Router() {
@@ -19,6 +20,10 @@ function Router() {
       <Route path={"/journal/:slug"} component={JournalArticle} />
       <Route path={"/stories"} component={Stories} />
       <Route path={"/stories/:slug"} component={StoryArticle} />
+      <Route path={"/about"} component={InfoPage} />
+      <Route path={"/terms"} component={InfoPage} />
+      <Route path={"/privacy"} component={InfoPage} />
+      <Route path={"/contact"} component={InfoPage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
