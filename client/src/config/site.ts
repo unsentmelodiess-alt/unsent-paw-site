@@ -20,7 +20,7 @@ export const navItems = [
   { label: "Home", href: "/#home" },
   { label: "Memory Wall", href: "/#memory-wall" },
   { label: "Listen", href: "/#listen" },
-  { label: "Stories", href: "/#stories" },
+  { label: "Stories", href: "/stories" },
   { label: "Journal", href: "/journal" },
   { label: "Guides", href: "/#guides" },
   { label: "Shop", href: "/#shop" },

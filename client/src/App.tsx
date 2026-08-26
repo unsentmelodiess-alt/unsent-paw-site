@@ -6,7 +6,9 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Journal from "./pages/Journal";
-import JournalArticle from "./pages/JournalArticle";
+import JournalArticle from "@/pages/JournalArticle";
+import Stories from "@/pages/Stories";
+import StoryArticle from "@/pages/StoryArticle";
 
 
 function Router() {
@@ -15,6 +17,8 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/journal"} component={Journal} />
       <Route path={"/journal/:slug"} component={JournalArticle} />
+      <Route path={"/stories"} component={Stories} />
+      <Route path={"/stories/:slug"} component={StoryArticle} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

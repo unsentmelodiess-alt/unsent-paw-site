@@ -4,12 +4,19 @@ import { SoundPawMotif } from "@/components/SoundPawMotif";
 import { Button } from "@/components/ui/button";
 import { journalArticles, journalCategories } from "@/data/journal";
 import { ArrowRight, BookOpen, Headphones, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 
 const tones: Record<string, string> = { peach: "bg-[#f1dfcf]", moss: "bg-[#dce5d7]", sage: "bg-[#d8e0dc]", ink: "bg-[#302d27] text-[#f5f0e8]" };
 
 export default function Journal() {
+  useEffect(() => {
+    document.title = "The Journal | Unsent Melodies";
+    const description = "Gentle, practical notes about pet loss, dog behavior, and calmer evenings from Unsent Melodies.";
+    let tag = document.querySelector('meta[name="description"]');
+    if (!tag) { tag = document.createElement("meta"); tag.setAttribute("name", "description"); document.head.appendChild(tag); }
+    tag.setAttribute("content", description);
+  }, []);
   const [category, setCategory] = useState<(typeof journalCategories)[number]>("All");
   const [query, setQuery] = useState("");
   const visibleArticles = useMemo(() => journalArticles.filter((article) => (category === "All" || article.category === category) && `${article.title} ${article.dek}`.toLowerCase().includes(query.toLowerCase())), [category, query]);
