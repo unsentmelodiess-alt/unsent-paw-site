@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://unsent-paw-site-6lr2bpg2p-unsentmelodiess-alts-projects.vercel.app/sitemap.xml
