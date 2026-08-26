@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+pnpm-debug.log*
+
+# Build output
+dist/
+.vite/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+.project-config.json
+.manus-logs/
+
+# Editors and OS files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Local test artifacts
+coverage/
+playwright-report/
+test-results/

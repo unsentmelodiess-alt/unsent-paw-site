@@ -1,10 +1,10 @@
-/** Fireside Editorial design: temporary English brand configuration. Change only this file when the final name is chosen. */
+/** Canonical brand configuration for the Unsent Melodies channel and listening space. */
 export const siteConfig = {
-  brandName: "Pet Memory Studio",
-  brandTagline: "Music, memories, and gentler days with pets.",
+  brandName: "Unsent Melodies",
+  brandTagline: "Pet memories, comfort, and calm.",
   contactEmail: "hello.unsentmelodies@gmail.com",
   social: {
-    youtube: "https://www.youtube.com/@unsentmelodies",
+    youtube: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
     support: "https://buymeacoffee.com/unsentmelodies",
     etsy: "https://www.etsy.com/",
   },
