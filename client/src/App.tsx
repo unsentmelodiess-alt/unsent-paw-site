@@ -10,6 +10,7 @@ import JournalArticle from "@/pages/JournalArticle";
 import Stories from "@/pages/Stories";
 import StoryArticle from "@/pages/StoryArticle";
 import InfoPage from "@/pages/InfoPage";
+import Admin from "@/pages/Admin";
 
 
 function Router() {
@@ -24,6 +25,7 @@ function Router() {
       <Route path={"/terms"} component={InfoPage} />
       <Route path={"/privacy"} component={InfoPage} />
       <Route path={"/contact"} component={InfoPage} />
+      <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
