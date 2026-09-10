@@ -3,14 +3,17 @@ import { JournalChrome } from "@/components/JournalChrome";
 import { SoundPawMotif } from "@/components/SoundPawMotif";
 import { Button } from "@/components/ui/button";
 import { findJournalArticle } from "@/data/journal";
+import { getJournalArticle } from "@/lib/content";
 import { siteConfig } from "@/config/site";
 import { ArrowLeft, ArrowRight, ExternalLink, Headphones, Heart, ShoppingBag } from "lucide-react";
 import { Link, useRoute } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function JournalArticle() {
   const [, params] = useRoute("/journal/:slug");
-  const article = findJournalArticle(params?.slug || "");
+  const slug = params?.slug || "";
+  const [article, setArticle] = useState(() => findJournalArticle(slug));
+  useEffect(() => { void getJournalArticle(slug).then(setArticle); }, [slug]);
   useEffect(() => {
     if (!article) return;
     document.title = `${article.title} | Unsent Melodies`;

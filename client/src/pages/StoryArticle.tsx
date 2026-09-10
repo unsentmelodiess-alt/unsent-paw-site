@@ -3,11 +3,14 @@ import { SoundPawMotif } from "@/components/SoundPawMotif";
 import { findStory } from "@/data/stories";
 import { ArrowLeft, ArrowRight, Headphones, Leaf } from "lucide-react";
 import { Link, useRoute } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getStory } from "@/lib/content";
 
 export default function StoryArticle() {
   const [, params] = useRoute("/stories/:slug");
-  const story = findStory(params?.slug || "");
+  const slug = params?.slug || "";
+  const [story, setStory] = useState(() => findStory(slug));
+  useEffect(() => { void getStory(slug).then(setStory); }, [slug]);
   useEffect(() => {
     if (!story) return;
     document.title = `${story.title} | Unsent Melodies`;
