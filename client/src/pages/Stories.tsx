@@ -2,11 +2,14 @@ import { JournalChrome } from "@/components/JournalChrome";
 import { SoundPawMotif } from "@/components/SoundPawMotif";
 import { ArrowRight, Headphones, Leaf } from "lucide-react";
 import { Link } from "wouter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { stories } from "@/data/stories";
+import { getStories } from "@/lib/content";
 
 export default function Stories() {
+  const [items, setItems] = useState(stories);
   useEffect(() => {
+    void getStories().then(setItems);
     document.title = "Stories & Listening | Unsent Melodies";
     let tag = document.querySelector('meta[name="description"]');
     if (!tag) { tag = document.createElement("meta"); tag.setAttribute("name", "description"); document.head.appendChild(tag); }
@@ -27,7 +30,7 @@ export default function Stories() {
 
         <section className="container max-w-6xl py-20">
           <div className="grid gap-6 lg:grid-cols-2">
-            {stories.map((story, index) => (
+            {items.map((story, index) => (
               <article key={story.slug} className={`overflow-hidden rounded-[2rem] border border-[#ded5c7] bg-white shadow-[0_14px_36px_rgba(71,57,38,.06)] dark:border-white/10 dark:bg-[#242b24] ${index === 1 ? "lg:translate-y-10" : ""}`}>
                 <img src={story.image} alt="" className="h-64 w-full object-cover" />
                 <div className="p-7 sm:p-9">
