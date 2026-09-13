@@ -22,6 +22,16 @@ export type SocialLink = {
   sortOrder: number;
 };
 
+export type ListeningTrack = {
+  slug: string;
+  title: string;
+  category: "remembrance" | "relaxation" | "sleep";
+  description: string;
+  youtubeUrl: string;
+  status: string;
+  sortOrder: number;
+};
+
 const fallbackProducts: Product[] = [{
   slug: "after-pet-loss-support-checklist",
   title: "After: A Pet Loss Support Checklist",
@@ -93,11 +103,27 @@ function mapSocialLink(row: Record<string, unknown>): SocialLink {
   return { platform: String(row.platform ?? ""), label: String(row.label ?? row.platform ?? "Visit link"), url: String(row.url ?? ""), sortOrder: Number(row.sort_order ?? 99) };
 }
 
+function mapListeningTrack(row: Record<string, unknown>): ListeningTrack {
+  const category = String(row.category ?? "remembrance");
+  return {
+    slug: String(row.slug ?? ""), title: String(row.title ?? "Untitled listening track"),
+    category: ["remembrance", "relaxation", "sleep"].includes(category) ? category as ListeningTrack["category"] : "remembrance",
+    description: String(row.description ?? ""), youtubeUrl: String(row.youtube_url ?? ""),
+    status: String(row.status ?? "published"), sortOrder: Number(row.sort_order ?? 99),
+  };
+}
+
 export async function getProducts(): Promise<Product[]> {
   if (!supabase) return fallbackProducts;
   const { data } = await supabase.from("products").select("slug,title,subtitle,description,product_url,etsy_url,gumroad_url,platform,price,status").eq("status", "published").order("updated_at", { ascending: false }).limit(100);
   const remote = (data ?? []).map((row) => mapProduct(row as Record<string, unknown>)).filter((row) => row.slug && row.title && row.productUrl);
   return remote.length ? remote : fallbackProducts;
+}
+
+export async function getListeningTracks(): Promise<ListeningTrack[]> {
+  if (!supabase) return [];
+  const { data } = await supabase.from("listening_tracks").select("slug,title,category,description,youtube_url,status,sort_order").eq("status", "published").order("sort_order", { ascending: true }).limit(100);
+  return (data ?? []).map((row) => mapListeningTrack(row as Record<string, unknown>)).filter((row) => row.slug && row.title && row.youtubeUrl);
 }
 
 export async function getSocialLinks(): Promise<SocialLink[]> {

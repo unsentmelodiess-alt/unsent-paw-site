@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { hasSupabaseConfig, supabase } from "@/lib/supabase";
 
-type TableName = "social_links" | "products" | "stories" | "journal_posts";
+type TableName = "social_links" | "products" | "stories" | "journal_posts" | "listening_tracks";
 type RecordRow = Record<string, unknown>;
 
 type Module = {
@@ -28,6 +28,11 @@ const modules: Module[] = [
     { key: "eyebrow", label: "Eyebrow" }, { key: "excerpt", label: "Excerpt", type: "textarea" },
     { key: "youtube_url", label: "YouTube URL", type: "url" }, { key: "status", label: "Status" },
     { key: "body", label: "Body paragraphs (one per line)", type: "textarea", required: true },
+  ]},
+  { table: "listening_tracks", label: "Listening tracks", fields: [
+    { key: "slug", label: "Slug", required: true }, { key: "title", label: "Title", required: true },
+    { key: "category", label: "Category: remembrance / relaxation / sleep", required: true }, { key: "description", label: "Description", type: "textarea" },
+    { key: "youtube_url", label: "YouTube video or playlist URL", type: "url", required: true }, { key: "sort_order", label: "Order", type: "number" }, { key: "status", label: "Status" },
   ]},
   { table: "journal_posts", label: "Journal", fields: [
     { key: "slug", label: "Slug", required: true }, { key: "title", label: "Title", required: true },
