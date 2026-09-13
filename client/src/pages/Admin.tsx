@@ -19,8 +19,9 @@ const modules: Module[] = [
   { table: "products", label: "Products", fields: [
     { key: "slug", label: "Slug", required: true }, { key: "title", label: "Title", required: true },
     { key: "subtitle", label: "Subtitle" }, { key: "description", label: "Description", type: "textarea" },
-    { key: "product_url", label: "Store URL", type: "url" }, { key: "platform", label: "Platform" },
-    { key: "price", label: "Price", type: "number" }, { key: "status", label: "Status" },
+    { key: "product_url", label: "Legacy Store URL", type: "url" }, { key: "etsy_url", label: "Etsy product URL", type: "url" },
+    { key: "gumroad_url", label: "Gumroad product URL", type: "url" }, { key: "platform", label: "Primary platform" },
+    { key: "price", label: "Internal price", type: "number" }, { key: "status", label: "Status" },
   ]},
   { table: "stories", label: "Stories", fields: [
     { key: "slug", label: "Slug", required: true }, { key: "title", label: "Title", required: true },

@@ -8,6 +8,8 @@ export type Product = {
   subtitle: string;
   description: string;
   productUrl: string;
+  etsyUrl: string;
+  gumroadUrl: string;
   platform: string;
   price: string;
   status: string;
@@ -26,6 +28,8 @@ const fallbackProducts: Product[] = [{
   subtitle: "A practical, gentle 13-page checklist for the days when everything feels like too much.",
   description: "A warm checklist for navigating the small decisions that follow pet loss, including home, belongings, records, family, other pets, and caring for yourself. Includes color and low-ink PDF files for A4 and US Letter.",
   productUrl: "https://unsentmelodies.gumroad.com/l/czqktb",
+  etsyUrl: "https://www.etsy.com/listing/4574578262/after-a-pet-loss-support-checklist-pet",
+  gumroadUrl: "https://unsentmelodies.gumroad.com/l/czqktb",
   platform: "Gumroad",
   price: "$9.99",
   status: "published",
@@ -78,8 +82,10 @@ function mapJournal(row: Record<string, unknown>): JournalArticle {
 function mapProduct(row: Record<string, unknown>): Product {
   return {
     slug: String(row.slug ?? ""), title: String(row.title ?? "Untitled product"), subtitle: String(row.subtitle ?? ""),
-    description: String(row.description ?? ""), productUrl: String(row.product_url ?? ""), platform: String(row.platform ?? ""),
-    price: row.price == null || row.price === "" ? "" : `$${Number(row.price).toFixed(2)}`, status: String(row.status ?? "published"),
+    description: String(row.description ?? ""), productUrl: String(row.product_url ?? ""),
+    etsyUrl: String(row.etsy_url ?? (String(row.platform ?? "").toLowerCase() === "etsy" ? row.product_url : "")),
+    gumroadUrl: String(row.gumroad_url ?? (String(row.platform ?? "").toLowerCase() === "gumroad" ? row.product_url : "")),
+    platform: String(row.platform ?? ""), price: row.price == null || row.price === "" ? "" : `$${Number(row.price).toFixed(2)}`, status: String(row.status ?? "published"),
   };
 }
 
@@ -89,7 +95,7 @@ function mapSocialLink(row: Record<string, unknown>): SocialLink {
 
 export async function getProducts(): Promise<Product[]> {
   if (!supabase) return fallbackProducts;
-  const { data } = await supabase.from("products").select("slug,title,subtitle,description,product_url,platform,price,status").eq("status", "published").order("updated_at", { ascending: false }).limit(100);
+  const { data } = await supabase.from("products").select("slug,title,subtitle,description,product_url,etsy_url,gumroad_url,platform,price,status").eq("status", "published").order("updated_at", { ascending: false }).limit(100);
   const remote = (data ?? []).map((row) => mapProduct(row as Record<string, unknown>)).filter((row) => row.slug && row.title && row.productUrl);
   return remote.length ? remote : fallbackProducts;
 }

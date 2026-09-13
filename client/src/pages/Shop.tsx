@@ -43,7 +43,7 @@ export default function Shop() {
               <h3 className="mt-8 max-w-lg font-display text-4xl leading-tight tracking-[-.04em]">{product.title}</h3>
               <p className="mt-4 text-lg leading-8 text-[#625a4f] dark:text-[#cfc8bc]">{product.subtitle}</p>
               <p className="mt-5 text-sm leading-7 text-[#71695d] dark:text-[#bcb5a9]">{product.description}</p>
-              <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-[#75836D] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#5e6d57]">View product <ArrowUpRight className="size-4" /></a>
+              <div className="mt-8 flex flex-wrap gap-3">{product.etsyUrl && <a href={product.etsyUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#75836D] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#5e6d57]">Buy on Etsy <ArrowUpRight className="size-4" /></a>}{product.gumroadUrl && <a href={product.gumroadUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#75836D] px-5 py-3 text-sm font-bold text-[#5e6d57] transition hover:bg-[#75836D] hover:text-white dark:text-[#c9d8c0]">Buy on Gumroad <ArrowUpRight className="size-4" /></a>}{!product.etsyUrl && !product.gumroadUrl && product.productUrl && <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#75836D] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#5e6d57]">View product <ArrowUpRight className="size-4" /></a>}</div>
             </article>)}
           </div>}
         </section>
