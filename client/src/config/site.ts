@@ -23,5 +23,5 @@ export const navItems = [
   { label: "Stories", href: "/stories" },
   { label: "Journal", href: "/journal" },
   { label: "Guides", href: "/#guides" },
-  { label: "Shop", href: "/#shop" },
+  { label: "Shop", href: "/shop" },
 ];
