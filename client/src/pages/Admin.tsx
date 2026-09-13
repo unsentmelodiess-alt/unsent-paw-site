@@ -56,7 +56,7 @@ function toPayload(values: Record<string, string>, module: Module) {
     else payload[field.key] = raw || null;
   }
   if ("status" in payload && !payload.status) payload.status = "draft";
-  if (payload.status === "published" && !payload.published_at) payload.published_at = new Date().toISOString();
+  if (payload.status === "published" && module.table !== "listening_tracks" && !payload.published_at) payload.published_at = new Date().toISOString();
   return payload;
 }
 
