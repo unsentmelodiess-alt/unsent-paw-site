@@ -39,7 +39,7 @@ export default function Shop() {
           </div>
           {loading ? <p className="mt-10 rounded-3xl bg-[#f1ece3] p-8 text-sm dark:bg-white/5">Loading the shop…</p> : <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {products.map((product) => <article key={product.slug} className="flex flex-col rounded-[2rem] border border-[#d9d0c0] bg-[#fbf8f1] p-7 shadow-[0_16px_50px_rgba(70,61,49,.06)] dark:border-white/10 dark:bg-white/5 sm:p-9">
-              <div className="flex items-start justify-between gap-4"><p className="eyebrow">{product.platform} · instant download</p>{product.price && <span className="rounded-full bg-[#e9e3d6] px-3 py-1 text-sm font-bold text-[#5e6d57] dark:bg-white/10 dark:text-[#c9d8c0]">{product.price}</span>}</div>
+              <div className="flex items-start justify-between gap-4"><p className="eyebrow">{product.platform} · instant download</p></div>
               <h3 className="mt-8 max-w-lg font-display text-4xl leading-tight tracking-[-.04em]">{product.title}</h3>
               <p className="mt-4 text-lg leading-8 text-[#625a4f] dark:text-[#cfc8bc]">{product.subtitle}</p>
               <p className="mt-5 text-sm leading-7 text-[#71695d] dark:text-[#bcb5a9]">{product.description}</p>
