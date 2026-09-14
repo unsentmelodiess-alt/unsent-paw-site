@@ -5,15 +5,17 @@ import { Link } from "wouter";
 import { useEffect, useState } from "react";
 import { stories } from "@/data/stories";
 import { getStories } from "@/lib/content";
+import { setPageMeta } from "@/lib/seo";
 
 export default function Stories() {
   const [items, setItems] = useState(stories);
   useEffect(() => {
     void getStories().then(setItems);
-    document.title = "Stories & Listening | Unsent Melodies";
-    let tag = document.querySelector('meta[name="description"]');
-    if (!tag) { tag = document.createElement("meta"); tag.setAttribute("name", "description"); document.head.appendChild(tag); }
-    tag.setAttribute("content", "Quiet stories and listening reflections for the bonds that shape a home.");
+    setPageMeta({
+      title: "Stories & Listening | Unsent Melodies",
+      description: "Quiet stories and listening reflections for the bonds that shape a home.",
+      path: "/stories",
+    });
   }, []);
   return (
     <JournalChrome>

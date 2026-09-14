@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Headphones, Leaf } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import { useEffect, useState } from "react";
 import { getStory } from "@/lib/content";
+import { setPageMeta } from "@/lib/seo";
 
 export default function StoryArticle() {
   const [, params] = useRoute("/stories/:slug");
@@ -13,11 +14,22 @@ export default function StoryArticle() {
   useEffect(() => { void getStory(slug).then(setStory); }, [slug]);
   useEffect(() => {
     if (!story) return;
-    document.title = `${story.title} | Unsent Melodies`;
-    let tag = document.querySelector('meta[name="description"]');
-    if (!tag) { tag = document.createElement("meta"); tag.setAttribute("name", "description"); document.head.appendChild(tag); }
-    tag.setAttribute("content", story.dek);
-  }, [story]);
+    setPageMeta({
+      title: `${story.title} | Unsent Melodies`,
+      description: story.dek,
+      path: `/stories/${slug}`,
+      type: "article",
+      jsonLd: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: story.title,
+        description: story.dek,
+        url: `https://unsent-paw-site.vercel.app/stories/${slug}`,
+        author: { "@type": "Organization", name: "Unsent Melodies" },
+        publisher: { "@type": "Organization", name: "Unsent Melodies" },
+      },
+    });
+  }, [story, slug]);
 
   if (!story) {
     return <JournalChrome><main className="container py-32"><p className="eyebrow">Stories</p><h1 className="mt-5 font-display text-6xl tracking-[-.06em]">This story moved.</h1><p className="mt-5 text-[#665e53] dark:text-[#cfc8bc]">Return to the stories collection to find another quiet place to begin.</p><Link href="/stories" className="mt-8 inline-flex rounded-full bg-[#75836D] px-5 py-3 text-sm font-bold text-white">Back to stories</Link></main></JournalChrome>;
