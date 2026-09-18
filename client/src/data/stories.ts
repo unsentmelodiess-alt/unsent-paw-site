@@ -48,6 +48,24 @@ export const stories: Story[] = [
     trackLabel: "Explore Unsent Melodies",
     trackHref: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
   },
+  {
+    slug: "the-place-beside-your-feet",
+    eyebrow: "A remembrance story",
+    title: "The place beside your feet",
+    dek: "Some absences are measured in small movements: the space under a table, the pause before sitting down, the place your feet still leave open.",
+    body: [
+      "There is a place beside your feet that may take a while to notice. It is not always an object or a corner. Sometimes it is the small adjustment you make before sitting down, leaving room for a body that used to arrive without asking.",
+      "A pet teaches the body a collection of quiet manners. You step over a tail, make space on the blanket, check the floor before opening a door, and listen for the sound that tells you someone has settled nearby. These movements become so ordinary that they feel less like habits than like the shape of the day.",
+      "After a loss, the body may continue the conversation. Your hand reaches toward the familiar place. You look down before moving a chair. You pause at the threshold. The mind may know what has changed while the body is still keeping faith with the old arrangement.",
+      "There is no need to correct every movement immediately. A pause can be a form of recognition. You can notice the empty place, say a name, and let yourself remember the ordinary comfort that once lived there. Love is often recorded in these nearly invisible adjustments.",
+      "When you are ready, you might choose one small object to place there: a photograph, a folded blanket, a flower, or a card with one sentence. It does not need to become a shrine or remain forever. It can simply tell the room that this life belonged here.",
+      "If another animal shares the home, allow them their own pace. They may seek the place, avoid it, or seem unchanged. Keep familiar routines where possible and notice changes without turning them into a story too quickly. Care can be patient and observant at the same time.",
+      "One day, you may sit down without making room. That moment does not erase the bond. The place beside your feet can become part of the history of the room: an empty space, a remembered space, and eventually a space where you can rest again.",
+    ],
+    image: "/images/listening-night.webp",
+    trackLabel: "Listen to the remembrance collection",
+    trackHref: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
+  },
 ];
 
 export function findStory(slug: string) {

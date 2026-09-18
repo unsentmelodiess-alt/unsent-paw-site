@@ -206,6 +206,38 @@ export const journalArticles: JournalArticle[] = [
     ],
     resources: [{ label: "RSPCA: understanding a dog’s body language", href: "https://www.rspca.org.uk/adviceandwelfare/pets/dogs/behaviour/understanding" }],
   },
+  {
+    slug: "how-to-remember-a-pet-on-their-birthday",
+    category: "Remembrance",
+    title: "How to remember a pet on their birthday",
+    dek: "A gentle collection of ideas for marking a beloved pet’s birthday after loss, without turning remembrance into a performance.",
+    readingTime: "6 min read",
+    accent: "peach",
+    label: "A remembrance guide",
+    product: "After: Pet Loss Support Checklist",
+    track: "We Will Be Whole Again",
+    sections: [
+      { heading: "Let the day be shaped by your bond", paragraphs: ["A pet’s birthday can bring warmth, sadness, or both. There is no required way to observe it. You might say their name, revisit a photograph, take the walk they loved, or simply allow the date to pass without asking yourself to feel a certain way.", "Choose one detail that belongs specifically to your relationship. The most meaningful ritual is often ordinary: the treat they waited for, the blanket they claimed, or the place where they watched the world go by."] },
+      { heading: "Keep the ritual small enough to return to", paragraphs: ["A candle, a letter, a donation, or a quiet playlist can give the day a gentle shape. If other people join you, tell them what kind of company would feel helpful: sharing stories, sitting quietly, or helping with a practical task.", "Grief can feel different from year to year. You are allowed to change the ritual, skip it, or create something new. Remembering does not depend on repeating the same ceremony perfectly."] },
+    ],
+    resources: [{ label: "Cornell Pet Loss Resources and Support", href: "https://www.vet.cornell.edu/impact/community-impact/pet-loss-resources-and-support" }],
+  },
+  {
+    slug: "how-to-help-a-grieving-pet-after-another-pet-dies",
+    category: "Calm at home",
+    title: "How to help a grieving pet after another pet dies",
+    dek: "What to notice when a surviving dog or cat seems different, and how to offer steadiness without assuming every change has one cause.",
+    readingTime: "7 min read",
+    accent: "sage",
+    label: "A calmer home guide",
+    product: "Calm Pet Routine Planner",
+    track: "Night window · soft water",
+    sections: [
+      { heading: "Notice changes without rushing to explain them", paragraphs: ["A surviving pet may eat, sleep, play, vocalize, or seek contact differently after a companion dies. Some animals show a clear change; others appear mostly the same. Both responses are possible, and behavior alone cannot tell you exactly what an animal feels.", "Keep a simple note of appetite, water, toileting, movement, rest, and social behavior. Looking at the pattern over several days is more useful than interpreting one quiet afternoon as a conclusion."] },
+      { heading: "Protect familiar routines and offer choice", paragraphs: ["Keep meals, walks, rest, and gentle attention as predictable as you can. Offer invitations rather than pressure: a quiet room, a familiar bed, a sniffing walk, or a short play session. Let the animal decide how close or active they want to be.", "If there is a sudden or persistent change, pain, appetite loss, breathing difficulty, toileting change, or anything that feels unsafe, contact a veterinarian. Grief may be part of the picture, but medical causes should not be assumed away."] },
+    ],
+    resources: [{ label: "International Cat Care: cat-friendly environments", href: "https://icatcare.org/advice/" }, { label: "RSPCA: understanding dog body language", href: "https://www.rspca.org.uk/adviceandwelfare/pets/dogs/behaviour/understanding" }],
+  },
 ];
 
 export const journalCategories = ["All", "Remembrance", "Dog behavior", "Calm at home"] as const;

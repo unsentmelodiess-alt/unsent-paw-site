@@ -95,6 +95,18 @@ const routeMetadata = {
     title: "When the Room Learns a New Shape | Unsent Melodies",
     description: "A reflection on home, habit, and the small spaces a pet leaves behind.",
   },
+  "/stories/the-place-beside-your-feet": {
+    title: "The Place Beside Your Feet | Unsent Melodies",
+    description: "A remembrance story about the small movements and spaces that keep a beloved pet close.",
+  },
+  "/journal/how-to-remember-a-pet-on-their-birthday": {
+    title: "How to Remember a Pet on Their Birthday | Unsent Melodies",
+    description: "A gentle collection of ideas for marking a beloved pet's birthday after loss.",
+  },
+  "/journal/how-to-help-a-grieving-pet-after-another-pet-dies": {
+    title: "How to Help a Grieving Pet After Another Pet Dies | Unsent Melodies",
+    description: "What to notice when a surviving dog or cat seems different after a companion dies.",
+  },
 };
 
 function escapeHtml(value) {

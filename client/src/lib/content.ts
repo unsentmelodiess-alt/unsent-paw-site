@@ -137,7 +137,8 @@ export async function getStories(): Promise<Story[]> {
   if (!supabase) return localStories;
   const { data } = await supabase.from("stories").select("*").eq("status", "published").order("created_at", { ascending: false }).limit(100);
   const remote = (data ?? []).map((row) => mapStory(row as Record<string, unknown>)).filter((row) => row.slug && row.title);
-  return remote.length ? remote : localStories;
+  const remoteSlugs = new Set(remote.map((story) => story.slug));
+  return remote.length ? [...remote, ...localStories.filter((story) => !remoteSlugs.has(story.slug))] : localStories;
 }
 
 export async function getStory(slug: string): Promise<Story | undefined> {
@@ -151,7 +152,8 @@ export async function getJournalArticles(): Promise<JournalArticle[]> {
   if (!supabase) return journalArticles;
   const { data } = await supabase.from("journal_posts").select("*").eq("status", "published").order("created_at", { ascending: false }).limit(100);
   const remote = (data ?? []).map((row) => mapJournal(row as Record<string, unknown>)).filter((row) => row.slug && row.title);
-  return remote.length ? remote : journalArticles;
+  const remoteSlugs = new Set(remote.map((article) => article.slug));
+  return remote.length ? [...remote, ...journalArticles.filter((article) => !remoteSlugs.has(article.slug))] : journalArticles;
 }
 
 export async function getJournalArticle(slug: string): Promise<JournalArticle | undefined> {
