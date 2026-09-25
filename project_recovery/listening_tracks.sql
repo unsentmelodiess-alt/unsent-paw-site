@@ -25,5 +25,19 @@ create policy "Admins can manage listening tracks"
   using (exists (select 1 from public.admin_users where user_id = auth.uid()))
   with check (exists (select 1 from public.admin_users where user_id = auth.uid()));
 
+-- Explicit Data API grants for Supabase projects created before the
+-- October 30 change to automatic grants on new public tables.
+grant select
+  on table public.listening_tracks
+  to anon;
+
+grant select, insert, update, delete
+  on table public.listening_tracks
+  to authenticated;
+
+grant select, insert, update, delete
+  on table public.listening_tracks
+  to service_role;
+
 create index if not exists listening_tracks_status_order_idx
   on public.listening_tracks (status, sort_order);
