@@ -129,7 +129,9 @@ function renderHtml(route, metadata) {
     .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${canonical}" />`)
     .replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${title}" />`)
     .replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${description}" />`)
-    .replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${canonical}" />`);
+    .replace(/<meta property="og:url"[^>]*>/, `<meta property="og:url" content="${canonical}" />`)
+    .replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}" />`)
+    .replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${description}" />`);
 }
 
 for (const [route, metadata] of Object.entries(routeMetadata)) {

@@ -42,6 +42,12 @@ export function setPageMeta({
   upsertMeta('meta[property="og:title"]', { property: "og:title" }, title);
   upsertMeta('meta[property="og:description"]', { property: "og:description" }, description);
   upsertMeta('meta[property="og:url"]', { property: "og:url" }, url);
+  upsertMeta('meta[property="og:image"]', { property: "og:image" }, `${SITE_URL}/images/hero.webp`);
+  upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt" }, "A golden retriever resting beside a window");
+  upsertMeta('meta[name="twitter:card"]', { name: "twitter:card" }, "summary_large_image");
+  upsertMeta('meta[name="twitter:title"]', { name: "twitter:title" }, title);
+  upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
+  upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, `${SITE_URL}/images/hero.webp`);
   upsertCanonical(url);
 
   const id = "unsent-melodies-page-jsonld";
