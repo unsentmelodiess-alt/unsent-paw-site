@@ -1,4 +1,4 @@
-const SITE_URL = "https://unsent-paw-site.vercel.app";
+const SITE_URL = "https://unsentmelodies.com";
 
 function upsertMeta(selector: string, attributes: Record<string, string>, content: string) {
   let tag = document.head.querySelector<HTMLMetaElement>(selector);

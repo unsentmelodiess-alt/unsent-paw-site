@@ -25,7 +25,7 @@ export default function StoryArticle() {
         "@type": "Article",
         headline: story.title,
         description: story.dek,
-        url: `https://unsent-paw-site.vercel.app/stories/${slug}`,
+        url: `https://unsentmelodies.com/stories/${slug}`,
         author: { "@type": "Organization", name: "Unsent Melodies" },
         publisher: { "@type": "Organization", name: "Unsent Melodies" },
       },

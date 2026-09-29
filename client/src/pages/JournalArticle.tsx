@@ -24,7 +24,7 @@ export default function JournalArticle() {
       description: article.dek,
       path: `/journal/${slug}`,
       type: "article",
-      jsonLd: { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.dek, url: `https://unsent-paw-site.vercel.app/journal/${slug}`, author: { "@type": "Organization", name: "Unsent Melodies" }, publisher: { "@type": "Organization", name: "Unsent Melodies" } },
+      jsonLd: { "@context": "https://schema.org", "@type": "Article", headline: article.title, description: article.dek, url: `https://unsentmelodies.com/journal/${slug}`, author: { "@type": "Organization", name: "Unsent Melodies" }, publisher: { "@type": "Organization", name: "Unsent Melodies" } },
     });
   }, [article, slug]);
 

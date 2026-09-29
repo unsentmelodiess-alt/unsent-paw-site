@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const outputDir = path.join(root, "dist", "public");
 const template = await readFile(path.join(outputDir, "index.html"), "utf8");
-const siteUrl = "https://unsent-paw-site.vercel.app";
+const siteUrl = "https://unsentmelodies.com";
 
 const routeMetadata = {
   "/": {
