@@ -3,6 +3,12 @@
   "outputDirectory": "dist/public",
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://unsentmelodies.com/",
+      "has": [{ "type": "host", "value": "unsent-paw-site.vercel.app" }],
+      "statusCode": 301
+    },
+    {
       "source": "/:path*",
       "destination": "https://unsentmelodies.com/:path*",
       "has": [{ "type": "host", "value": "unsent-paw-site.vercel.app" }],
