@@ -1,6 +1,14 @@
 {
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://unsentmelodies.com/:path*",
+      "has": [{ "type": "host", "value": "unsent-paw-site.vercel.app" }],
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ],

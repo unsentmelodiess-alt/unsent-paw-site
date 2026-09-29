@@ -25,7 +25,7 @@ const mimeTypes: Record<string, string> = {
   ".woff2": "font/woff2",
 };
 
-const siteUrl = "https://unsent-paw-site.vercel.app";
+const siteUrl = "https://unsentmelodies.com";
 const routeMetadata: Record<string, { title: string; description: string }> = {
   "/": {
     title: "Unsent Melodies — Pet Memories, Comfort & Calm",
