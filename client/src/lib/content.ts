@@ -32,6 +32,14 @@ export type ListeningTrack = {
   sortOrder: number;
 };
 
+export type Tribute = {
+  id: string;
+  name: string;
+  dates: string;
+  note: string;
+  photoUrl: string;
+};
+
 const fallbackProducts: Product[] = [{
   slug: "after-pet-loss-support-checklist",
   title: "After: A Pet Loss Support Checklist",
@@ -113,6 +121,12 @@ function mapListeningTrack(row: Record<string, unknown>): ListeningTrack {
   };
 }
 
+function mapTribute(row: Record<string, unknown>): Tribute {
+  const photoPath = String(row.photo_path ?? "");
+  const photoUrl = photoPath && supabase ? supabase.storage.from("tribute-photos").getPublicUrl(photoPath).data.publicUrl : "";
+  return { id: String(row.id ?? ""), name: String(row.pet_name ?? "A beloved pet"), dates: String(row.dates ?? "A life well loved"), note: String(row.note ?? ""), photoUrl };
+}
+
 export async function getProducts(): Promise<Product[]> {
   if (!supabase) return fallbackProducts;
   const { data } = await supabase.from("products").select("slug,title,subtitle,description,product_url,etsy_url,gumroad_url,platform,price,status").eq("status", "published").order("updated_at", { ascending: false }).limit(100);
@@ -131,6 +145,25 @@ export async function getSocialLinks(): Promise<SocialLink[]> {
   const { data } = await supabase.from("social_links").select("platform,label,url,sort_order").order("sort_order", { ascending: true }).limit(100);
   const remote = (data ?? []).map((row) => mapSocialLink(row as Record<string, unknown>)).filter((row) => row.url);
   return remote.length ? remote : fallbackLinks;
+}
+
+export async function getApprovedTributes(): Promise<Tribute[]> {
+  if (!supabase) return [];
+  const { data } = await supabase.from("tributes").select("id,pet_name,dates,note,photo_path").eq("status", "approved").order("created_at", { ascending: false }).limit(100);
+  return (data ?? []).map((row) => mapTribute(row as Record<string, unknown>)).filter((row) => row.id && row.note);
+}
+
+export async function submitTribute(input: { name: string; dates: string; note: string; consent: boolean; photo?: File | null }): Promise<{ ok: boolean; message: string }> {
+  if (!supabase) return { ok: false, message: "The memory wall is temporarily unavailable." };
+  let photoPath: string | null = null;
+  if (input.photo) {
+    photoPath = `pending/${crypto.randomUUID()}-${input.photo.name.replace(/[^a-zA-Z0-9._-]/g, "-")}`;
+    const upload = await supabase.storage.from("tribute-photos").upload(photoPath, input.photo, { contentType: input.photo.type, upsert: false });
+    if (upload.error) return { ok: false, message: upload.error.message };
+  }
+  const { error } = await supabase.from("tributes").insert({ pet_name: input.name, dates: input.dates || null, note: input.note, consent: input.consent, status: "pending", photo_path: photoPath });
+  if (error) return { ok: false, message: error.message };
+  return { ok: true, message: "Thank you. Your memory is now waiting for a gentle review." };
 }
 
 export async function getStories(): Promise<Story[]> {

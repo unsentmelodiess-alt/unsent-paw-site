@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { hasSupabaseConfig, supabase } from "@/lib/supabase";
 
-type TableName = "social_links" | "products" | "stories" | "journal_posts" | "listening_tracks";
+type TableName = "social_links" | "products" | "stories" | "journal_posts" | "listening_tracks" | "tributes";
 type RecordRow = Record<string, unknown>;
 
 type Module = {
@@ -40,6 +40,11 @@ const modules: Module[] = [
     { key: "seo_title", label: "SEO title" }, { key: "seo_description", label: "SEO description", type: "textarea" },
     { key: "status", label: "Status" }, { key: "body", label: "Body paragraphs (one per line)", type: "textarea", required: true },
   ]},
+  { table: "tributes", label: "Memory Wall moderation", fields: [
+    { key: "pet_name", label: "Pet name", required: true }, { key: "dates", label: "Dates or note" },
+    { key: "note", label: "Tribute", type: "textarea", required: true }, { key: "photo_path", label: "Photo path" },
+    { key: "status", label: "Status: pending / approved / rejected", required: true },
+  ]},
 ];
 
 function toFormValue(value: unknown, key: string) {
@@ -56,6 +61,7 @@ function toPayload(values: Record<string, string>, module: Module) {
     else payload[field.key] = raw || null;
   }
   if ("status" in payload && !payload.status) payload.status = "draft";
+  if (module.table === "tributes" && (payload.status === "approved" || payload.status === "rejected")) payload.moderated_at = new Date().toISOString();
   if (payload.status === "published" && module.table !== "listening_tracks" && !payload.published_at) payload.published_at = new Date().toISOString();
   return payload;
 }
@@ -158,7 +164,7 @@ export default function Admin() {
           <aside className="rounded-3xl bg-white/70 p-4 shadow-sm dark:bg-white/5"><p className="px-3 pb-3 text-xs font-bold uppercase tracking-[.16em] text-[#a65f46]">Manage</p>{modules.map((item) => <button key={item.table} onClick={() => { setActiveTable(item.table); setValues({}); setEditingId(null); }} className={`mb-1 w-full rounded-xl px-3 py-3 text-left text-sm font-semibold ${activeTable === item.table ? "bg-[#75836D] text-white" : "hover:bg-[#75836D]/10"}`}>{item.label}</button>)}</aside>
           <div className="space-y-8"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#a65f46]">{activeModule.label}</p><h2 className="mt-2 font-display text-4xl">Content control</h2><p className="mt-2 text-sm text-[#665e53]">Add and remove published content. RLS only allows this for verified admins.</p></div>
             <form onSubmit={saveRow} className="grid gap-4 rounded-3xl bg-white/70 p-6 shadow-sm dark:bg-white/5 md:grid-cols-2">{activeModule.fields.map((field) => <label key={field.key} className={`text-sm font-semibold ${field.type === "textarea" ? "md:col-span-2" : ""}`}>{field.label}{field.type === "textarea" ? <textarea required={field.required} value={values[field.key] ?? ""} onChange={(e) => setValues({ ...values, [field.key]: e.target.value })} className="mt-2 min-h-28 w-full rounded-xl border border-[#d9d0c3] bg-transparent p-3 font-normal" /> : <input required={field.required} type={field.type === "number" ? "number" : field.type === "url" ? "url" : "text"} value={values[field.key] ?? ""} onChange={(e) => setValues({ ...values, [field.key]: e.target.value })} className="mt-2 w-full rounded-xl border border-[#d9d0c3] bg-transparent px-3 py-3 font-normal" />}</label>)}<div className="flex flex-wrap gap-3 md:col-span-2"><button disabled={busy} className="rounded-full bg-[#75836D] px-6 py-3 font-bold text-white">{busy ? "Saving…" : editingId ? "Save changes" : "Add item"}</button>{editingId && <button type="button" onClick={() => { setValues({}); setEditingId(null); }} className="rounded-full border border-[#75836D] px-6 py-3 font-bold">Cancel edit</button>}</div></form>
-            <div className="space-y-3">{rows.map((row) => <article key={String(row.id)} className="flex flex-wrap items-start justify-between gap-4 rounded-2xl bg-white/70 p-5 dark:bg-white/5"><div><p className="font-semibold">{String(row.title ?? row.label ?? row.slug ?? row.platform ?? "Untitled")}</p><p className="mt-1 text-xs text-[#665e53]">{String(row.status ?? row.url ?? "")}</p></div><div className="flex gap-2"><button onClick={() => { setEditingId(String(row.id)); setValues(Object.fromEntries(activeModule.fields.map((field) => [field.key, toFormValue(row[field.key], field.key)]))); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="rounded-full border border-[#75836D] px-4 py-2 text-xs font-bold text-[#5e6d57]">Edit</button><button onClick={() => void removeRow(String(row.id))} className="rounded-full border border-[#a65f46] px-4 py-2 text-xs font-bold text-[#a65f46]">Delete</button></div></article>)}{!busy && rows.length === 0 && <p className="rounded-2xl bg-white/50 p-5 text-sm">No items yet. Add the first one above.</p>}</div>
+            <div className="space-y-3">{rows.map((row) => <article key={String(row.id)} className="flex flex-wrap items-start justify-between gap-4 rounded-2xl bg-white/70 p-5 dark:bg-white/5"><div><p className="font-semibold">{String(row.title ?? row.label ?? row.slug ?? row.platform ?? row.pet_name ?? "Untitled")}</p><p className="mt-1 text-xs text-[#665e53]">{String(row.status ?? row.url ?? "")}{row.photo_path ? " · photo attached" : ""}</p></div><div className="flex gap-2"><button onClick={() => { setEditingId(String(row.id)); setValues(Object.fromEntries(activeModule.fields.map((field) => [field.key, toFormValue(row[field.key], field.key)]))); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="rounded-full border border-[#75836D] px-4 py-2 text-xs font-bold text-[#5e6d57]">Edit</button><button onClick={() => void removeRow(String(row.id))} className="rounded-full border border-[#a65f46] px-4 py-2 text-xs font-bold text-[#a65f46]">Delete</button></div></article>)}{!busy && rows.length === 0 && <p className="rounded-2xl bg-white/50 p-5 text-sm">No items yet. Add the first one above.</p>}</div>
           </div>
         </section>}
         {message && <p className="mt-6 rounded-xl bg-[#e5b17c]/30 p-4 text-sm">{message}</p>}
