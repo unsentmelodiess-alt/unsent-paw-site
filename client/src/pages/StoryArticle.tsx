@@ -7,6 +7,7 @@ import { Link, useRoute } from "wouter";
 import { useEffect, useState } from "react";
 import { getStory } from "@/lib/content";
 import { setPageMeta } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 
 export default function StoryArticle() {
   const [, params] = useRoute("/stories/:slug");
@@ -36,7 +37,11 @@ export default function StoryArticle() {
     return <JournalChrome><main className="container py-32"><p className="eyebrow">Stories</p><h1 className="mt-5 font-display text-6xl tracking-[-.06em]">This story moved.</h1><p className="mt-5 text-[#665e53] dark:text-[#cfc8bc]">Return to the stories collection to find another quiet place to begin.</p><Link href="/stories" className="mt-8 inline-flex rounded-full bg-[#75836D] px-5 py-3 text-sm font-bold text-white">Back to stories</Link></main></JournalChrome>;
   }
 
-  const relatedJournal = story.slug === "the-place-beside-your-feet"
+  const relatedJournal = story.slug === "a-letter-to-the-dog-who-taught-me-to-stay"
+    ? journalArticles.find((article) => article.slug === "how-to-cope-with-the-loss-of-a-pet")
+    : story.slug === "to-the-cat-who-waited-by-the-window"
+      ? journalArticles.find((article) => article.slug === "how-to-create-a-pet-memorial-at-home")
+      : story.slug === "the-place-beside-your-feet"
     ? journalArticles.find((article) => article.slug === "how-to-remember-a-pet-on-their-birthday")
     : journalArticles.find((article) => article.category === "Remembrance");
 
@@ -53,7 +58,7 @@ export default function StoryArticle() {
       </section>
       <section className="container grid max-w-5xl gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_280px]">
         <article className="max-w-2xl">{story.body.map((paragraph) => <p key={paragraph} className="mt-6 text-[1.08rem] leading-8 text-[#514a40] first:mt-0 dark:text-[#d2cbc0]">{paragraph}</p>)}<div className="mt-14 rounded-[1.6rem] border border-[#ded5c7] bg-[#f5efe4] p-7 dark:border-white/10 dark:bg-white/5"><p className="text-[.64rem] font-bold uppercase tracking-[.18em] text-[#75836D]">A gentle next step</p><p className="mt-4 font-display text-3xl leading-tight">You can carry the memory without carrying it alone.</p>{relatedJournal ? <Link href={`/journal/${relatedJournal.slug}`} className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#5e6d57]">{relatedJournal.title} <ArrowRight className="size-4" /></Link> : <Link href="/journal" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#5e6d57]">Read the Journal <ArrowRight className="size-4" /></Link>}</div></article>
-        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start"><div className="rounded-[1.5rem] bg-[#302d27] p-6 text-[#f5f0e8]"><Headphones className="size-5 text-[#e5b17c]" /><p className="mt-6 text-[.62rem] font-bold uppercase tracking-[.18em] text-[#b7c7ae]">Pair it with music</p><p className="mt-3 font-display text-3xl leading-tight">A quiet collection for the moments that stay.</p><a href={story.trackHref} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em] text-[#e5b17c]">Open on YouTube <ArrowRight className="size-4" /></a></div><Link href="/#memory-wall" className="block rounded-[1.5rem] bg-[#dce5d7] p-6 text-[#384136] transition hover:-translate-y-0.5 dark:bg-[#2e3c2e] dark:text-[#e7eee3]"><p className="text-[.62rem] font-bold uppercase tracking-[.18em] text-[#5e6d57]">Remember together</p><p className="mt-4 font-display text-3xl leading-tight">Leave a private or public memory.</p><span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em]">Visit the wall <ArrowRight className="size-4" /></span></Link></aside>
+        <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start"><div className="rounded-[1.5rem] bg-[#302d27] p-6 text-[#f5f0e8]"><Headphones className="size-5 text-[#e5b17c]" /><p className="mt-6 text-[.62rem] font-bold uppercase tracking-[.18em] text-[#b7c7ae]">Pair it with music</p><p className="mt-3 font-display text-3xl leading-tight">A quiet collection for the moments that stay.</p><a href={`${story.trackHref}${story.trackHref.includes("?") ? "&" : "?"}utm_source=website&utm_medium=story&utm_campaign=story_reading`} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em] text-[#e5b17c]">Open on YouTube <ArrowRight className="size-4" /></a><a href={`${siteConfig.social.youtube}?utm_source=website&utm_medium=story&utm_campaign=story_reading`} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em] text-[#b7c7ae]">Visit the channel <ArrowRight className="size-4" /></a></div><Link href="/#memory-wall" className="block rounded-[1.5rem] bg-[#dce5d7] p-6 text-[#384136] transition hover:-translate-y-0.5 dark:bg-[#2e3c2e] dark:text-[#e7eee3]"><p className="text-[.62rem] font-bold uppercase tracking-[.18em] text-[#5e6d57]">Remember together</p><p className="mt-4 font-display text-3xl leading-tight">Leave a private or public memory.</p><span className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em]">Visit the wall <ArrowRight className="size-4" /></span></Link></aside>
       </section>
     </main>
   </JournalChrome>;

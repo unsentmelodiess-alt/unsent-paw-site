@@ -66,6 +66,39 @@ export const stories: Story[] = [
     trackLabel: "Listen to the remembrance collection",
     trackHref: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
   },
+  {
+    slug: "a-letter-to-the-dog-who-taught-me-to-stay",
+    eyebrow: "An unsent letter",
+    title: "A letter to the dog who taught me to stay",
+    dek: "A letter about the quiet lessons hidden inside an ordinary life together.",
+    body: [
+      "Dear one, I used to think you were the one who needed me to stay. I measured the day by your meals, your walks, and the way you looked toward the door when the light began to change. I thought I was keeping you close. I did not understand how often you were keeping me here.",
+      "You taught me that staying could be small. It could be sitting on the kitchen floor because you had chosen that moment for closeness. It could be taking the slower path home. It could be waiting without trying to fill every quiet space with an answer.",
+      "There were days when I wanted life to become easier before I moved through it. You did not ask for easier. You asked for the next thing: a bowl, a blanket, an open door, a hand resting where you could find it. Your faith in ordinary care changed the shape of difficult days.",
+      "Now the house is quieter, and I sometimes mistake quiet for absence. Then I notice the lessons still moving through me. I pause before rushing. I leave room for another person’s tiredness. I remember that love is often a practice repeated so gently that we only recognize it when the routine is gone.",
+      "I cannot give the days back to you. I cannot make the last day different by thinking about it harder. But I can keep the part of you that taught me to be present. I can stay for the cup of tea, the unanswered message, the walk that does not fix anything but gives the body somewhere to go.",
+      "Thank you for making a life out of small things. Thank you for teaching me that staying is not the same as standing still. I am carrying your lesson forward, one ordinary evening at a time.",
+    ],
+    image: "/images/story-rescue.webp",
+    trackLabel: "Listen to the remembrance collection",
+    trackHref: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
+  },
+  {
+    slug: "to-the-cat-who-waited-by-the-window",
+    eyebrow: "An unsent letter",
+    title: "To the cat who waited by the window",
+    dek: "A quiet letter about patience, returning home, and the places a small life makes luminous.",
+    body: [
+      "You never met the door the way I did. You met the window. Every afternoon, you found the same patch of light and made it look intentional, as if the whole room had been arranged for your arrival. I used to call you a creature of habits. Now I understand that you were teaching me to notice them.",
+      "You waited without making waiting look empty. A bird crossed the garden. A neighbor carried groceries. Rain changed the glass. You watched, and then you turned toward me as if returning attention was its own kind of gift.",
+      "After you died, the window kept its light. That was almost the hardest part. The room continued to offer the same beautiful things without the small body that had taught me where to look. For a while I avoided the chair. Then one morning I sat there and let the sun reach me too.",
+      "I still think of you when the afternoon becomes gold. I think of the patience you gave to ordinary minutes, and how a life can be full without being loud. You did not need the day to become remarkable. You made a place for it as it was.",
+      "If there is a room somewhere made entirely of warm windows, I hope you have found the best one. I hope you are still choosing the quietest patch of light. I hope some part of me is there in the way I stop now, look outside, and let the day arrive before I ask it for anything.",
+    ],
+    image: "/images/listening-night.webp",
+    trackLabel: "Explore Unsent Melodies",
+    trackHref: "https://www.youtube.com/channel/UCyTzBEJFvEvFfREmZhSRmdw",
+  },
 ];
 
 export function findStory(slug: string) {

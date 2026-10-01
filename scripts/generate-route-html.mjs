@@ -107,6 +107,22 @@ const routeMetadata = {
     title: "How to Help a Grieving Pet After Another Pet Dies | Unsent Melodies",
     description: "What to notice when a surviving dog or cat seems different after a companion dies.",
   },
+  "/journal/how-to-cope-with-the-loss-of-a-pet": {
+    title: "How to Cope with the Loss of a Pet | Unsent Melodies",
+    description: "A practical, compassionate starting point for the first days and weeks after a beloved animal dies.",
+  },
+  "/journal/how-to-create-a-pet-memorial-at-home": {
+    title: "How to Create a Pet Memorial at Home | Unsent Melodies",
+    description: "Simple, flexible ideas for making a meaningful place for remembrance at home.",
+  },
+  "/stories/a-letter-to-the-dog-who-taught-me-to-stay": {
+    title: "A Letter to the Dog Who Taught Me to Stay | Unsent Melodies",
+    description: "An unsent letter about the quiet lessons hidden inside an ordinary life with a beloved dog.",
+  },
+  "/stories/to-the-cat-who-waited-by-the-window": {
+    title: "To the Cat Who Waited by the Window | Unsent Melodies",
+    description: "A quiet letter about patience, returning home, and the places a small life makes luminous.",
+  },
 };
 
 function escapeHtml(value) {

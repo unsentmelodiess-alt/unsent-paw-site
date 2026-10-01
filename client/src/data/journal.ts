@@ -238,6 +238,40 @@ export const journalArticles: JournalArticle[] = [
     ],
     resources: [{ label: "International Cat Care: cat-friendly environments", href: "https://icatcare.org/advice/" }, { label: "RSPCA: understanding dog body language", href: "https://www.rspca.org.uk/adviceandwelfare/pets/dogs/behaviour/understanding" }],
   },
+  {
+    slug: "how-to-cope-with-the-loss-of-a-pet",
+    category: "Remembrance",
+    title: "How to cope with the loss of a pet",
+    dek: "A practical, compassionate starting point for the first days and weeks after a beloved animal dies.",
+    readingTime: "8 min read",
+    accent: "peach",
+    label: "A first-days guide",
+    product: "After: Pet Loss Support Checklist",
+    track: "We Will Be Whole Again",
+    sections: [
+      { heading: "There is no correct way to begin", paragraphs: ["Pet loss can affect the body as much as the heart. You may feel tearful, numb, restless, relieved that suffering has ended, or all of these things in one day. None of those responses makes the bond less real. The first task is not to be okay; it is to get through the next small stretch with as much care as possible.", "If you can, tell one safe person what has happened and what kind of support would actually help. You might need company, practical help with belongings, a meal, or simply someone willing to hear the same story twice. Specific requests are often easier for people to answer than a general invitation to help."] },
+      { heading: "Make the practical decisions slowly", paragraphs: ["After a death, there may be decisions about cremation or burial, belongings, records, other animals, and how to tell children. You do not have to solve every part on the same day. Write down the decisions, ask a trusted person to sit with you, and choose the one that truly cannot wait.", "For belongings, there is no deadline. Leave things where they are, gather a few meaningful objects, or ask someone else to pack items temporarily. A pause is a valid decision. Your home does not need to look different before your grief is ready for it to change."] },
+      { heading: "Give the bond somewhere to go", paragraphs: ["A small ritual can give love a place to move without turning grief into a performance. Write a letter, keep a photograph near a window, make a playlist, take a familiar walk, or say your pet’s name before bed. Choose something repeatable and private if that feels safer.", "If grief remains overwhelming, disrupts sleep or eating, or makes daily life feel unsafe, consider speaking with a mental-health professional or a pet-loss support service. Reaching out is not an overreaction; it is one way to care for the person who is carrying the loss."] },
+    ],
+    resources: [{ label: "Cornell Pet Loss Resources and Support", href: "https://www.vet.cornell.edu/impact/community-impact/pet-loss-resources-and-support" }, { label: "Best Friends: grieving the loss of a pet", href: "https://bestfriends.org/pet-care-resources/grieving-loss-pet-resources-coping" }],
+  },
+  {
+    slug: "how-to-create-a-pet-memorial-at-home",
+    category: "Remembrance",
+    title: "How to create a pet memorial at home",
+    dek: "Simple, flexible ideas for making a meaningful place for remembrance without turning your home into a project.",
+    readingTime: "7 min read",
+    accent: "moss",
+    label: "A gentle remembrance project",
+    product: "After: Pet Loss Support Checklist",
+    track: "The Phantom Weight",
+    sections: [
+      { heading: "Start with one meaningful detail", paragraphs: ["A memorial does not need a dedicated room, expensive materials, or a finished design. Begin with one detail that holds the relationship: a collar, a favorite photograph, a tag, a paw print, or a sentence about a habit only you would notice.", "Choose a place that feels steady rather than prominent. A shelf, a drawer, a small box, or a corner near a window can be enough. Privacy is part of meaning; you do not need to display the memorial for it to be real."] },
+      { heading: "Choose a form that can change", paragraphs: ["Some people prefer a small arrangement that stays in one place. Others create a memory box, a photo book, a playlist, a planted pot, or a digital folder. You can change the form as your needs change. Moving an object does not move the love out of your life.", "If children are part of the household, invite them to choose one item or make one drawing, while letting them decide how much they want to participate. A shared ritual can be comforting, but it should never become an obligation."] },
+      { heading: "Let remembrance include ordinary life", paragraphs: ["A memorial can hold more than the final days. Add a funny photograph, a favorite phrase, a map of a walking route, or a note about the first day you met. Joyful details do not diminish grief; they help describe the whole life that was shared.", "On difficult days, you can visit the memorial briefly or leave it alone. There is no required frequency. The purpose is not to keep the sadness active, but to give memory a kind and manageable place to rest."] },
+    ],
+    resources: [{ label: "Cornell: ways to memorialize a pet", href: "https://www.vet.cornell.edu/impact/community-impact/pet-loss-resources-and-support" }],
+  },
 ];
 
 export const journalCategories = ["All", "Remembrance", "Dog behavior", "Calm at home"] as const;

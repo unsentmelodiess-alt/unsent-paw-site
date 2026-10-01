@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { stories } from "@/data/stories";
 import { getStories } from "@/lib/content";
 import { setPageMeta } from "@/lib/seo";
+import { siteConfig } from "@/config/site";
 
 export default function Stories() {
   const [items, setItems] = useState(stories);
@@ -42,7 +43,7 @@ export default function Stories() {
                   <p className="mt-5 text-sm leading-7 text-[#71685c] dark:text-[#cfc8bc]">{story.body[0]}</p>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <Link href={`/stories/${story.slug}`} className="inline-flex items-center gap-2 rounded-full bg-[#75836D] px-5 py-3 text-xs font-bold text-white transition hover:bg-[#5e6d57]">Read story <ArrowRight className="size-4" /></Link>
-                    <a href={story.trackHref} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#8a7a69] px-5 py-3 text-xs font-bold text-[#4f483e] transition hover:bg-[#f1ede5] dark:border-white/25 dark:text-[#f5f0e8] dark:hover:bg-white/10">{story.trackLabel}</a>
+                    <a href={`${story.trackHref}${story.trackHref.includes("?") ? "&" : "?"}utm_source=website&utm_medium=stories_index&utm_campaign=story_reading`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#8a7a69] px-5 py-3 text-xs font-bold text-[#4f483e] transition hover:bg-[#f1ede5] dark:border-white/25 dark:text-[#f5f0e8] dark:hover:bg-white/10">{story.trackLabel}</a>
                   </div>
                 </div>
               </article>
