@@ -7,11 +7,16 @@ import { stories } from "@/data/stories";
 import { getStories } from "@/lib/content";
 import { setPageMeta } from "@/lib/seo";
 import { siteConfig } from "@/config/site";
+import { CommunityStoryDialog } from "@/components/CommunityStoryDialog";
+import { getApprovedCommunityStories, submitCommunityStory, type CommunityStory } from "@/lib/content";
 
 export default function Stories() {
   const [items, setItems] = useState(stories);
+  const [communityStories, setCommunityStories] = useState<CommunityStory[]>([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
   useEffect(() => {
     void getStories().then(setItems);
+    void getApprovedCommunityStories().then(setCommunityStories);
     setPageMeta({
       title: "Stories & Listening | Unsent Melodies",
       description: "Quiet stories and listening reflections for the bonds that shape a home.",
@@ -26,7 +31,7 @@ export default function Stories() {
           <div className="container relative max-w-6xl">
             <p className="eyebrow"><Leaf className="size-3" />Stories & listening</p>
             <h1 className="mt-5 max-w-4xl font-display text-6xl leading-[.92] tracking-[-.06em] sm:text-8xl">Small stories,<br /><em className="font-normal text-[#75836D]">kept close.</em></h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#625a4f] dark:text-[#cfc8bc]">Quiet reflections for the bonds that shape a home. Read a story, find a song, and take only the next gentle step.</p>
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#625a4f] dark:text-[#cfc8bc]">Quiet reflections for the bonds that shape a home. Read a story, find a song, and take only the next gentle step.</p><button onClick={() => setDialogOpen(true)} className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#75836D] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#5e6d57]">Share their story <ArrowRight className="size-4" /></button>
             <SoundPawMotif className="mt-9 w-40 text-[#75836D]" />
           </div>
         </section>
@@ -49,6 +54,7 @@ export default function Stories() {
               </article>
             ))}
           </div>
+          {communityStories.length > 0 && <section className="mt-24"><p className="eyebrow"><Leaf className="size-3" />From the community</p><h2 className="mt-4 font-display text-5xl tracking-[-.05em]">Stories shared with permission.</h2><p className="mt-4 max-w-2xl leading-7 text-[#625e53] dark:text-[#cfc8bc]">These stories were sent by pet people and reviewed before publication. Read gently, and remember that every life is more than a single page.</p><div className="mt-10 grid gap-5 lg:grid-cols-2">{communityStories.map((story) => <article key={story.id} className="rounded-[1.8rem] border border-[#ded5c7] bg-[#f5efe4] p-7 dark:border-white/10 dark:bg-white/5"><p className="text-[.64rem] font-bold uppercase tracking-[.18em] text-[#75836D]">Community story · in memory of {story.petName}</p><h3 className="mt-4 font-display text-3xl leading-tight">{story.title}</h3><p className="mt-4 whitespace-pre-line text-base leading-7 text-[#625a4f] dark:text-[#d3cdc2]">{story.storyBody}</p><p className="mt-6 text-xs font-bold uppercase tracking-[.15em] text-[#8a7a69]">Shared by {story.authorDisplay}</p></article>)}</div></section>}
           <div className="mt-24 rounded-[1.8rem] bg-[#302d27] p-8 text-[#f5f0e8] sm:p-12">
             <p className="eyebrow text-[#b7c7ae]"><Leaf className="size-3" />Continue gently</p>
             <h2 className="mt-4 max-w-2xl font-display text-4xl leading-tight tracking-[-.05em] sm:text-5xl">Find a note for the day you are having.</h2>
@@ -59,6 +65,7 @@ export default function Stories() {
           </div>
         </section>
       </main>
+      <CommunityStoryDialog open={dialogOpen} onOpenChange={setDialogOpen} onSubmit={async (story) => submitCommunityStory(story)} />
     </JournalChrome>
   );
 }

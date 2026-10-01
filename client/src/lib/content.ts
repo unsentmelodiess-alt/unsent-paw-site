@@ -40,6 +40,14 @@ export type Tribute = {
   photoUrl: string;
 };
 
+export type CommunityStory = {
+  id: string;
+  title: string;
+  petName: string;
+  storyBody: string;
+  authorDisplay: string;
+};
+
 const fallbackProducts: Product[] = [{
   slug: "after-pet-loss-support-checklist",
   title: "After: A Pet Loss Support Checklist",
@@ -164,6 +172,19 @@ export async function submitTribute(input: { name: string; dates: string; note: 
   const { error } = await supabase.from("tributes").insert({ pet_name: input.name, dates: input.dates || null, note: input.note, consent: input.consent, status: "pending", photo_path: photoPath });
   if (error) return { ok: false, message: error.message };
   return { ok: true, message: "Thank you. Your memory is now waiting for a gentle review." };
+}
+
+export async function getApprovedCommunityStories(): Promise<CommunityStory[]> {
+  if (!supabase) return [];
+  const { data } = await supabase.from("community_stories").select("id,title,pet_name,story_body,author_display").eq("status", "approved").eq("consent_publish", true).order("created_at", { ascending: false }).limit(40);
+  return (data ?? []).map((row) => ({ id: String(row.id ?? ""), title: String(row.title ?? ""), petName: String(row.pet_name ?? ""), storyBody: String(row.story_body ?? ""), authorDisplay: String(row.author_display ?? "A community member") })).filter((row) => row.id && row.title && row.storyBody);
+}
+
+export async function submitCommunityStory(input: { title: string; petName: string; storyBody: string; authorDisplay: string; privateEmail: string; consentPublish: boolean; consentMedia: boolean }): Promise<{ ok: boolean; message: string }> {
+  if (!supabase) return { ok: false, message: "Story submissions are temporarily unavailable." };
+  const { error } = await supabase.from("community_stories").insert({ title: input.title, pet_name: input.petName, story_body: input.storyBody, author_display: input.authorDisplay || "A community member", private_email: input.privateEmail || null, consent_publish: input.consentPublish, consent_media: input.consentMedia, status: "pending" });
+  if (error) return { ok: false, message: error.message };
+  return { ok: true, message: "Thank you. Your story is now waiting for a gentle review." };
 }
 
 export async function getStories(): Promise<Story[]> {
