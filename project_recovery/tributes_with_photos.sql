@@ -41,9 +41,9 @@ create index if not exists tributes_status_created_idx
   on public.tributes (status, created_at desc);
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('tribute-photos', 'tribute-photos', true, 5242880, array['image/jpeg', 'image/png', 'image/webp']::text[])
+values ('tribute-photos', 'tribute-photos', false, 5242880, array['image/jpeg', 'image/png', 'image/webp']::text[])
 on conflict (id) do update set
-  public = excluded.public,
+  public = false,
   file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
@@ -52,12 +52,6 @@ create policy "Visitors can upload tribute photos"
   on storage.objects for insert
   to anon, authenticated
   with check (bucket_id = 'tribute-photos' and name like 'pending/%');
-
-drop policy if exists "Anyone can view tribute photos" on storage.objects;
-create policy "Anyone can view tribute photos"
-  on storage.objects for select
-  to anon, authenticated
-  using (bucket_id = 'tribute-photos');
 
 drop policy if exists "Admins can manage tribute photos" on storage.objects;
 create policy "Admins can manage tribute photos"

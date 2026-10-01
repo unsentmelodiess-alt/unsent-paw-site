@@ -128,6 +128,21 @@ export default function Admin() {
     if (!supabase) return;
     setBusy(true); setMessage("");
     const payload = toPayload(values, activeModule);
+    if (activeTable === "tributes" && payload.status === "approved" && typeof payload.photo_path === "string" && payload.photo_path.startsWith("pending/")) {
+      const sourcePath = payload.photo_path;
+      const approvedPath = sourcePath.replace(/^pending\//, "approved/");
+      const download = await supabase.storage.from("tribute-photos").download(sourcePath);
+      if (download.error || !download.data) { setMessage(download.error?.message ?? "Could not prepare the photo for publication."); setBusy(false); return; }
+      const upload = await supabase.storage.from("tribute-approved").upload(approvedPath, download.data, { contentType: download.data.type, upsert: true });
+      if (upload.error) { setMessage(upload.error.message); setBusy(false); return; }
+      payload.photo_path = approvedPath;
+      await supabase.storage.from("tribute-photos").remove([sourcePath]);
+    }
+    if (activeTable === "tributes" && payload.status === "rejected" && typeof payload.photo_path === "string" && payload.photo_path) {
+      const bucket = payload.photo_path.startsWith("approved/") ? "tribute-approved" : "tribute-photos";
+      await supabase.storage.from(bucket).remove([payload.photo_path]);
+      payload.photo_path = null;
+    }
     const result = editingId
       ? await supabase.from(activeTable).update(payload).eq("id", editingId)
       : await supabase.from(activeTable).insert(payload);
@@ -139,6 +154,13 @@ export default function Admin() {
   async function removeRow(id: string) {
     if (!supabase || !window.confirm("حذف هذا العنصر؟")) return;
     setBusy(true);
+    if (activeTable === "tributes") {
+      const row = rows.find((item) => String(item.id) === id);
+      if (typeof row?.photo_path === "string") {
+        const bucket = row.photo_path.startsWith("approved/") ? "tribute-approved" : "tribute-photos";
+        await supabase.storage.from(bucket).remove([row.photo_path]);
+      }
+    }
     const { error } = await supabase.from(activeTable).delete().eq("id", id);
     setMessage(error ? error.message : "تم الحذف.");
     await loadRows(); setBusy(false);

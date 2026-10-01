@@ -123,7 +123,7 @@ function mapListeningTrack(row: Record<string, unknown>): ListeningTrack {
 
 function mapTribute(row: Record<string, unknown>): Tribute {
   const photoPath = String(row.photo_path ?? "");
-  const photoUrl = photoPath && supabase ? supabase.storage.from("tribute-photos").getPublicUrl(photoPath).data.publicUrl : "";
+  const photoUrl = photoPath && supabase ? supabase.storage.from("tribute-approved").getPublicUrl(photoPath).data.publicUrl : "";
   return { id: String(row.id ?? ""), name: String(row.pet_name ?? "A beloved pet"), dates: String(row.dates ?? "A life well loved"), note: String(row.note ?? ""), photoUrl };
 }
 

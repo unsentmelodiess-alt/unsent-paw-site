@@ -99,6 +99,7 @@ function securityHeaders(contentType: string) {
     "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
     "X-DNS-Prefetch-Control": "off",
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Content-Security-Policy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.supabase.co https://i.ytimg.com https://www.google-analytics.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; media-src 'self' blob:; worker-src 'self' blob:",
   };
 }
 
