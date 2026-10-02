@@ -12,9 +12,25 @@ import StoryArticle from "@/pages/StoryArticle";
 import InfoPage from "@/pages/InfoPage";
 import Admin from "@/pages/Admin";
 import Shop from "@/pages/Shop";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
 
 
 function Router() {
+  const [location] = useLocation();
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      const hash = window.location.hash.replace(/^#/, "");
+      if (hash) {
+        document.getElementById(decodeURIComponent(hash))?.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location]);
+
   return (
     <Switch>
       <Route path={"/"} component={Home} />
