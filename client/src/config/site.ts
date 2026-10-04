@@ -18,6 +18,7 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "Home", href: "/#home" },
+  { label: "Start here", href: "/start-here" },
   { label: "Memory Wall", href: "/#memory-wall" },
   { label: "Listen", href: "/#listen" },
   { label: "Stories", href: "/stories" },

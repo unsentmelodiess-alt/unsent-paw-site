@@ -11,6 +11,10 @@ const routeMetadata = {
     title: "Unsent Melodies — Pet Memories, Comfort & Calm",
     description: "Unsent Melodies — pet memories, comfort, and calm through music and gentle reflection.",
   },
+  "/start-here": {
+    title: "Start Here | Unsent Melodies",
+    description: "Find a gentle place to begin with pet loss support, remembrance stories, calming music, and practical guidance.",
+  },
   "/journal": {
     title: "The Journal | Unsent Melodies",
     description: "Gentle, practical notes about pet loss, dog behavior, and calmer evenings from Unsent Melodies.",

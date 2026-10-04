@@ -12,6 +12,7 @@ import StoryArticle from "@/pages/StoryArticle";
 import InfoPage from "@/pages/InfoPage";
 import Admin from "@/pages/Admin";
 import Shop from "@/pages/Shop";
+import StartHere from "@/pages/StartHere";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -43,6 +44,7 @@ function Router() {
       <Route path={"/privacy"} component={InfoPage} />
       <Route path={"/contact"} component={InfoPage} />
       <Route path={"/shop"} component={Shop} />
+      <Route path={"/start-here"} component={StartHere} />
       <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
