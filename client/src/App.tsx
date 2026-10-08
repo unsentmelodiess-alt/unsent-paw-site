@@ -13,6 +13,7 @@ import InfoPage from "@/pages/InfoPage";
 import Admin from "@/pages/Admin";
 import Shop from "@/pages/Shop";
 import StartHere from "@/pages/StartHere";
+import PetLossSupport from "@/pages/PetLossSupport";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -45,6 +46,7 @@ function Router() {
       <Route path={"/contact"} component={InfoPage} />
       <Route path={"/shop"} component={Shop} />
       <Route path={"/start-here"} component={StartHere} />
+      <Route path={"/pet-loss-support"} component={PetLossSupport} />
       <Route path={"/admin"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

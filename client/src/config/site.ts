@@ -23,6 +23,6 @@ export const navItems = [
   { label: "Listen", href: "/#listen" },
   { label: "Stories", href: "/stories" },
   { label: "Journal", href: "/journal" },
-  { label: "Guides", href: "/#guides" },
+  { label: "Guides", href: "/pet-loss-support" },
   { label: "Shop", href: "/shop" },
 ];
