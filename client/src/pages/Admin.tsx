@@ -145,7 +145,7 @@ export default function Admin() {
     if (!supabase) return;
     setBusy(true); setMessage("");
     const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: `${window.location.origin}/admin`,
+      redirectTo: "https://www.unsentmelodies.com/admin",
     });
     setMessage(error ? error.message : "تم إرسال رابط إعادة ضبط كلمة المرور إلى بريدك الإلكتروني.");
     setBusy(false);
