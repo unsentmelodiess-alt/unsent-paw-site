@@ -75,6 +75,10 @@ function toPayload(values: Record<string, string>, module: Module) {
 export default function Admin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [resetEmail, setResetEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [resetPasswordConfirmation, setResetPasswordConfirmation] = useState("");
+  const [resetMode, setResetMode] = useState(false);
   const [sessionEmail, setSessionEmail] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -105,7 +109,14 @@ export default function Admin() {
     setLoading(false);
   }
 
-  useEffect(() => { void loadSession(); }, []);
+  useEffect(() => {
+    if (!supabase) { void loadSession(); return; }
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "PASSWORD_RECOVERY") setResetMode(true);
+    });
+    void loadSession();
+    return () => authListener.subscription.unsubscribe();
+  }, []);
 
   async function loadRows() {
     if (!supabase || !isAdmin) return;
@@ -126,6 +137,29 @@ export default function Admin() {
     if (error) { setMessage(error.message); setBusy(false); return; }
     setSessionEmail(data.user?.email ?? null);
     if (data.user && await verify(data.user.id)) setMessage("تم التحقق من صلاحية المدير.");
+    setBusy(false);
+  }
+
+  async function handleResetRequest(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!supabase) return;
+    setBusy(true); setMessage("");
+    const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/admin`,
+    });
+    setMessage(error ? error.message : "تم إرسال رابط إعادة ضبط كلمة المرور إلى بريدك الإلكتروني.");
+    setBusy(false);
+  }
+
+  async function handlePasswordUpdate(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!supabase) return;
+    if (newPassword.length < 8) { setMessage("يجب أن تتكون كلمة المرور من 8 أحرف على الأقل."); return; }
+    if (newPassword !== resetPasswordConfirmation) { setMessage("كلمتا المرور غير متطابقتين."); return; }
+    setBusy(true); setMessage("");
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    setMessage(error ? error.message : "تم تحديث كلمة المرور بنجاح. يمكنك الآن استخدام لوحة الإدارة.");
+    if (!error) { setNewPassword(""); setResetPasswordConfirmation(""); setResetMode(false); }
     setBusy(false);
   }
 
@@ -186,8 +220,10 @@ export default function Admin() {
           {sessionEmail && <button onClick={logout} className="rounded-full border border-[#75836D] px-5 py-2 text-sm font-bold">Sign out</button>}
         </div>
         {!hasSupabaseConfig && <div className="mt-8 rounded-2xl bg-[#f1dfcf] p-5">Supabase environment variables are not configured.</div>}
-        {!sessionEmail && hasSupabaseConfig && <form onSubmit={handleLogin} className="mx-auto mt-12 max-w-lg space-y-5 rounded-3xl bg-white/70 p-7 shadow-sm dark:bg-white/5"><h2 className="font-display text-3xl">Sign in</h2><input required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><input required type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><button disabled={busy} className="rounded-full bg-[#75836D] px-6 py-3 font-bold text-white">{busy ? "Signing in…" : "Sign in"}</button></form>}
-        {sessionEmail && !isAdmin && <div className="mx-auto mt-12 max-w-lg rounded-3xl bg-white/70 p-7">Signed in as <strong>{sessionEmail}</strong><p className="mt-3">This account is not listed in admin_users.</p></div>}
+        {resetMode && hasSupabaseConfig && <form onSubmit={handlePasswordUpdate} className="mx-auto mt-12 max-w-lg space-y-5 rounded-3xl bg-white/70 p-7 shadow-sm dark:bg-white/5"><h2 className="font-display text-3xl">Set a new password</h2><p className="text-sm text-[#665e53]">Choose a new password for your admin account.</p><input required minLength={8} type="password" placeholder="New password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><input required minLength={8} type="password" placeholder="Confirm new password" value={resetPasswordConfirmation} onChange={(e) => setResetPasswordConfirmation(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><button disabled={busy} className="rounded-full bg-[#75836D] px-6 py-3 font-bold text-white">{busy ? "Updating…" : "Update password"}</button></form>}
+        {!resetMode && !sessionEmail && hasSupabaseConfig && <form onSubmit={handleLogin} className="mx-auto mt-12 max-w-lg space-y-5 rounded-3xl bg-white/70 p-7 shadow-sm dark:bg-white/5"><h2 className="font-display text-3xl">Sign in</h2><input required type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><input required type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><button disabled={busy} className="rounded-full bg-[#75836D] px-6 py-3 font-bold text-white">{busy ? "Signing in…" : "Sign in"}</button><button type="button" onClick={() => { setResetEmail(email); setMessage(""); }} className="block text-sm font-semibold text-[#75836D] underline">Forgot password?</button></form>}
+        {!resetMode && !sessionEmail && hasSupabaseConfig && resetEmail && <form onSubmit={handleResetRequest} className="mx-auto mt-5 max-w-lg space-y-4 rounded-3xl bg-white/70 p-7 shadow-sm dark:bg-white/5"><h2 className="font-display text-2xl">Reset your password</h2><p className="text-sm text-[#665e53]">We will send a secure reset link to this email address.</p><input required type="email" placeholder="Email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)} className="w-full rounded-xl border border-[#d9d0c3] bg-transparent px-4 py-3" /><button disabled={busy} className="rounded-full border border-[#75836D] px-6 py-3 font-bold text-[#5e6d57]">{busy ? "Sending…" : "Send reset link"}</button></form>}
+        {!resetMode && sessionEmail && !isAdmin && <div className="mx-auto mt-12 max-w-lg rounded-3xl bg-white/70 p-7">Signed in as <strong>{sessionEmail}</strong><p className="mt-3">This account is not listed in admin_users.</p></div>}
         {isAdmin && <section className="mt-10 grid gap-8 lg:grid-cols-[220px_1fr]">
           <aside className="rounded-3xl bg-white/70 p-4 shadow-sm dark:bg-white/5"><p className="px-3 pb-3 text-xs font-bold uppercase tracking-[.16em] text-[#a65f46]">Manage</p>{modules.map((item) => <button key={item.table} onClick={() => { setActiveTable(item.table); setValues({}); setEditingId(null); }} className={`mb-1 w-full rounded-xl px-3 py-3 text-left text-sm font-semibold ${activeTable === item.table ? "bg-[#75836D] text-white" : "hover:bg-[#75836D]/10"}`}>{item.label}</button>)}</aside>
           <div className="space-y-8"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#a65f46]">{activeModule.label}</p><h2 className="mt-2 font-display text-4xl">Content control</h2><p className="mt-2 text-sm text-[#665e53]">Add and remove published content. RLS only allows this for verified admins.</p></div>
