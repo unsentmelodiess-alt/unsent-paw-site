@@ -1,4 +1,4 @@
-const SITE_URL = "https://unsentmelodies.com";
+const SITE_URL = "https://www.unsentmelodies.com";
 
 function upsertMeta(selector: string, attributes: Record<string, string>, content: string) {
   let tag = document.head.querySelector<HTMLMetaElement>(selector);

@@ -26,7 +26,7 @@ export default function StoryArticle() {
         "@type": "Article",
         headline: story.title,
         description: story.dek,
-        url: `https://unsentmelodies.com/stories/${slug}`,
+        url: `https://www.unsentmelodies.com/stories/${slug}`,
         author: { "@type": "Organization", name: "Unsent Melodies" },
         publisher: { "@type": "Organization", name: "Unsent Melodies" },
       },
