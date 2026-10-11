@@ -31,6 +31,10 @@ const routeMetadata = {
     title: "The Shop | Unsent Melodies",
     description: "Thoughtful digital keepsakes and gentle tools for remembering, reflecting, and caring for pets.",
   },
+  "/shop/pet-loss-support-bundle": {
+    title: "Pet Loss Support Bundle | Gentle Digital Grief & Memorial Tools",
+    description: "A gentle pet loss support collection with a practical checklist, grief journal, farewell letters, and printable affirmation cards for remembering a beloved dog or cat.",
+  },
   "/about": {
     title: "About Unsent Melodies",
     description: "Learn about Unsent Melodies, a quiet space for pet memories, music, comfort, and kind reflection.",

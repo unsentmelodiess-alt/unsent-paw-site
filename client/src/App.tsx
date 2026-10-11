@@ -12,8 +12,9 @@ import StoryArticle from "@/pages/StoryArticle";
 import InfoPage from "@/pages/InfoPage";
 import Admin from "@/pages/Admin";
 import Shop from "@/pages/Shop";
-import StartHere from "@/pages/StartHere";
-import PetLossSupport from "@/pages/PetLossSupport";
+import StartHere from "./pages/StartHere";
+import PetLossSupport from "./pages/PetLossSupport";
+import PetLossSupportBundle from "./pages/PetLossSupportBundle";
 import { useEffect } from "react";
 import { useLocation } from "wouter";
 
@@ -45,6 +46,7 @@ function Router() {
       <Route path={"/privacy"} component={InfoPage} />
       <Route path={"/contact"} component={InfoPage} />
       <Route path={"/shop"} component={Shop} />
+      <Route path={"/shop/pet-loss-support-bundle"} component={PetLossSupportBundle} />
       <Route path={"/start-here"} component={StartHere} />
       <Route path={"/pet-loss-support"} component={PetLossSupport} />
       <Route path={"/admin"} component={Admin} />
