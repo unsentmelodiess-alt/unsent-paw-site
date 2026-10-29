@@ -1,4 +1,4 @@
-/** Fireside Editorial design: a warm, compact visual anchor with a temporary text wordmark. */
+/** Fireside Editorial design: a warm, compact visual anchor for the Unsent Melodies brand. */
 import { siteConfig } from "@/config/site";
 import { SoundPawMotif } from "@/components/SoundPawMotif";
 

@@ -10,13 +10,13 @@ const pages = {
     sections: [
       ["Why this exists", "Some bonds are too important to be reduced to a single goodbye. We make songs, stories, and practical resources for the ordinary days of loving an animal and the difficult days of missing one."],
       ["What we believe", "Care should feel kind, clear, and unhurried. We do not use fear, shame, or exaggerated promises. Our listening projects are made to offer company, not to replace veterinary, behavioral, medical, or mental-health care."],
-      ["What is growing", "The site will gradually include original music, a moderated memory space, thoughtful digital keepsakes, and a second listening home for calm routines shared by dogs, cats, and their people."]
+      ["What is growing", "The site brings together original music, a moderated memory space, thoughtful digital keepsakes, and new listening resources for calm routines shared by dogs, cats, and their people."]
     ]
   },
   terms: {
     eyebrow: "Terms of use",
     title: "A clear agreement for a gentle space.",
-    intro: "By using this website, you agree to use it respectfully and to understand what this early-stage project does and does not provide.",
+    intro: "By using this website, you agree to use it respectfully and to understand what this space does and does not provide.",
     sections: [
       ["Content and education", "The articles, stories, music descriptions, and guides are provided for general information and reflection. They are not veterinary, medical, behavioral, legal, or mental-health advice, and they do not replace a qualified professional."],
       ["Your contributions", "If you submit a memory or message, you confirm that you have the right to share it. Do not submit private information about another person without permission. We may moderate, decline, or remove submissions that are unsafe, unlawful, abusive, or unrelated to the purpose of the space."],
@@ -29,9 +29,9 @@ const pages = {
     title: "Your story should remain yours.",
     intro: "We aim to collect only what is needed to operate and improve this project, and we will not ask you to place sensitive personal information in a public memory.",
     sections: [
-      ["Information you choose to share", "A memory submitted through the current prototype may be stored locally in your browser and may not be recoverable after browser data is cleared. Do not submit information you need us to preserve until a reviewed, persistent memory system is launched."],
+      ["Information you choose to share", "A memory submitted through the Memory Wall is stored securely for moderation. It remains private until approved, and only approved memories and photos are shown publicly. Do not submit sensitive personal information or anything you do not have permission to share."],
       ["Analytics and links", "If analytics is enabled, it may record general usage such as pages visited, traffic sources, and button interactions. YouTube, Etsy, Gumroad, social networks, and music platforms operate under their own privacy policies when you follow an external link."],
-      ["Contact and deletion", "For questions about a message or a future memory submission, email hello.unsentmelodies@gmail.com. Include only the minimum detail needed to help us respond. We will update this policy when new data features, accounts, or persistent storage are introduced."]
+      ["Contact and deletion", "For questions about a message or a memory submission, email hello.unsentmelodies@gmail.com. Include only the minimum detail needed to help us respond, and contact us if you would like to ask about removal of a contribution."]
     ]
   },
   contact: {
@@ -67,7 +67,7 @@ export default function InfoPage() {
           <div className="space-y-10">
             {page.sections.map(([heading, body]) => <section key={heading} className="border-b border-[#ded5c7] pb-10 last:border-0 dark:border-white/10"><h2 className="font-display text-4xl tracking-[-.05em]">{heading}</h2><p className="mt-4 text-[1.05rem] leading-8 text-[#514a40] dark:text-[#d2cbc0]">{heading === "Email" ? <a className="inline-flex items-center gap-2 text-[#5e6d57] underline underline-offset-4" href={`mailto:${body}`}><Mail className="size-4" />{body}</a> : body}</p></section>)}
           </div>
-          <p className="mt-12 text-xs leading-6 text-[#817769]">Last updated: August 2026. This page is a plain-language starting point for the current site and should be reviewed before paid products, email subscriptions, or persistent user accounts launch.</p>
+          <p className="mt-12 text-xs leading-6 text-[#817769]">Last updated: October 2026.</p>
         </section>
       </main>
     </JournalChrome>
